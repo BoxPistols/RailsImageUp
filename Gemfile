@@ -15,6 +15,10 @@ gem 'pg', group: :production
 gem "carrierwave"
 gem "mini_magick"
 
+# gem 'bootstrap', '~> 4.1.1'
+gem "milligram";
+gem "bulma-rails", "~> 0.7.4"
+
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -42,8 +46,6 @@ gem 'jbuilder', '~> 2.5'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
-gem "milligram";
-
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
