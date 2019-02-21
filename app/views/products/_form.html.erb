@@ -1,37 +1,62 @@
 <%= form_with(model: product, local: true) do |form| %>
-  <% if product.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+<% if product.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(product.errors.count, "error") %>
+      prohibited this product from being saved:</h2>
 
-      <ul>
+    <ul>
       <% product.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
-      </ul>
+    </ul>
+  </div>
+<% end %>
+
+<div class="field">
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+</div>
+
+<div class="field">
+  <%= form.label :price %>
+  <%= form.number_field :price %>
+</div>
+
+<div class="field">
+  <%= form.label :stock %>
+  <%= form.number_field :stock %>
+</div>
+
+<div class="field">
+  <%= form.label :note %>
+  <%= form.text_area :note %>
+</div>
+
+<!-- 追加箇所 開始 -->
+<div class="field">
+  <% if @product.image? %>
+    <div class="thumbnail">
+      <%= image_tag @product.image.url %>
     </div>
+  <% end %><br>
+
+  <%= form.label :image %><br>
+  <%= form.file_field :image %>
+  <%= form.hidden_field :image_cache %>
+
+</div>
+<div class="field">
+  <!-- 既存レコード(DBに保存されている)かつ、画像が存在する場合 -->
+  <% if @product.persisted? && @product.image? %>
+    <label>
+      <%= f.check_box :remove_image %>
+      画像を削除
+    </label>
   <% end %>
+</div>
+<!-- 追加箇所 終了 -->
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.number_field :price %>
-  </div>
-
-  <div class="field">
-    <%= form.label :stock %>
-    <%= form.number_field :stock %>
-  </div>
-
-  <div class="field">
-    <%= form.label :note %>
-    <%= form.text_area :note %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+<div class="actions">
+  <%= form.submit %>
+</div>
 <% end %>
