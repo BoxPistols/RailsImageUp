@@ -10,6 +10,7 @@ gem 'sqlite3', '~> 1.3.6'
 
 # Use Puma as the app server
 gem "carrierwave"
+gem "mini_magick"
 
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
