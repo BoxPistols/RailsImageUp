@@ -20,6 +20,14 @@
         <td><%= product.price %></td>
         <td><%= product.stock %></td>
         <td><%= product.note %></td>
+        <td>
+          <% if product.image? %>
+            <div class="thumbnail">
+              <%= image_tag product.image.url %>
+            </div>
+          <% end %>
+        </td>
+
         <td><%= link_to 'Show', product %></td>
         <td><%= link_to 'Edit', edit_product_path(product) %></td>
         <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
