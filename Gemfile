@@ -16,7 +16,7 @@ gem "carrierwave"
 gem "mini_magick"
 
 # gem 'bootstrap', '~> 4.1.1'
-gem "milligram";
+# gem "milligram";
 gem "bulma-rails", "~> 0.7.4"
 
 gem 'puma', '~> 3.11'

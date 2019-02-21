@@ -13,3 +13,12 @@
  *= require_tree .
  *= require_self
  */
+/* @import "bootstrap";  */
+// @import "milligram";
+
+@import "bulma";
+
+h1.logo a {
+  font-size: 3rem;
+  line-height: 2;
+}
