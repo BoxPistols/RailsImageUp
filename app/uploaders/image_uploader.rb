@@ -1,69 +1,60 @@
-class ImageUploader < CarrierWave::Uploader::Base
-  storage :ftp
-  CarrierWave.configure do |config|
-    config.ftp_host = 'theno.sakura.ne.jp'
-    config.ftp_port = 21
-    config.ftp_user = 'theno'
-    config.ftp_passwd = '
-    '
-    config.ftp_folder = '/home/theno/www/sns/photo'
-    config.ftp_url = 'http://theno.jp/sns/photo'
-    config.ftp_passive = false # false by default
-    config.ftp_tls = false # false by default
-  end
-
+class UserShotUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
-  # include CarrierWave::RMagick
-  include CarrierWave::MiniMagick
+  # include CarrierWave::MiniMagick
 
-  # resize_to_fitはファイルのサイズを変更します
-  # アップロードされたファイルを200〜200以下に変換する
-  process resize_to_fit: [200, 200]
+  # include Cloudinary::CarrierWave
 
-  # 別のスケールを設定
-  version :thumb do
-    process resize_to_fit: [50, 50]
-  end
+  process convert: 'png' # 画像の保存形式
+  process tags: ['image'] # 保存時に添付されるタグ（管理しやすいように適宜変更しましょう）
 
-  # Choose what kind of storage to use for this uploader:
-  # storage :file
-  # storage :fog
-
-  # Override the directory where uploaded files will be stored.
-  # This is a sensible default for uploaders that are meant to be mounted:
+  # Choose what kind of storage to us e for this uploader:
+  # if Rails.env.production?
+  #   storage :fog
+  # else
+  #   storage :file
+  # end
+  # storage :file if Rails.env.production?
+  #
   # def store_dir
   #   "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   # end
 
-  # Provide a default URL as a default if there hasn't been a file uploaded:
-  # def default_url(*args)
-  #   # For Rails 3.1+ asset pipeline compatibility:
-  #   # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
+  version :full do
+    process resize_to_fit: [800, 600]
+  end
+
+  version :thumb do
+    process resize_to_fit: [400, 300]
+  end
   #
-  #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
-  # end
+  def public_id
+    'local_test_cloudinary/' + Cloudinary::Utils.random_public_id
+  end
 
-  # Process files as they are uploaded:
-  # process scale: [200, 300]
-  #
-  # def scale(width, height)
-  #   # do something
-  # end
-
-  # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process resize_to_fit: [50, 50]
-  # end
-
-  # Add a white list of extensions which are allowed to be uploaded.
-  # For images you might use something like this:
+  if Rails.env.production?
+    include Cloudinary::CarrierWave
+  # 本番用設定を書く
+  else
+    include CarrierWave::RMagick
+  # 開発・テスト用設定を書く
+end
   # def extension_whitelist
-  #   %w(jpg jpeg gif png)
+  #   %w[jpg jpeg gif png]
   # end
 
-  # Override the filename of the uploaded files:
-  # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
+  # def default_url
+  #   '/assets/fallback/' + [version_name, 'default.png'].compact.join('_')
+  # end
+
+  # storage :ftp
+  # CarrierWave.configure do |config|
+  #   config.ftp_host = 'theno.sakura.ne.jp'
+  #   config.ftp_port = 21
+  #   config.ftp_user = 'theno'
+  #   config.ftp_passwd = 'b66wxz787z'
+  #   config.ftp_folder = '/home/theno/www/sns/photo'
+  #   config.ftp_url = 'http://theno.jp/sns/photo'
+  #   config.ftp_passive = false # false by default
+  #   config.ftp_tls = false # false by default
   # end
 end
