@@ -4,7 +4,8 @@ class ImageUploader < CarrierWave::Uploader::Base
     config.ftp_host = 'theno.sakura.ne.jp'
     config.ftp_port = 21
     config.ftp_user = 'theno'
-    config.ftp_passwd = 'b66wxz787z'
+    config.ftp_passwd = '
+    '
     config.ftp_folder = '/home/theno/www/sns/photo'
     config.ftp_url = 'http://theno.jp/sns/photo'
     config.ftp_passive = false # false by default
