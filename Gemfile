@@ -17,6 +17,9 @@ gem 'carrierwave', '>= 1.0.0.beta', '< 2.0'
 gem "mini_magick"
 gem 'carrierwave-ftp', :require => 'carrierwave/storage/ftp'
 
+gem "cloudinary"
+
+
 # gem 'bootstrap', '~> 4.1.1'
 # gem "milligram";
 gem "bulma-rails", "~> 0.7.4"
