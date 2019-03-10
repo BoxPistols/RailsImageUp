@@ -19,14 +19,10 @@ development:
 test:
   <<: *default
   database: db/test.sqlite3
-#
-# production:
-#   <<: *default
-#   database: db/production.sqlite3
 
 production:
-  # <<: *default
-  # database: dribbleclone_production
-  # username: dribbleclone
-  # password: <%= ENV['DRIBBLECLONE_DATABASE_PASSWORD'] %>
-  url: <%= ENV['DATABASE_URL'] %>
+  <<: *default
+  database: db/production.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
