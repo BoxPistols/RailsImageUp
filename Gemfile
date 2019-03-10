@@ -13,8 +13,9 @@ gem 'pg', group: :production
 
 # Use Puma as the app server
 gem 'carrierwave', '>= 1.0.0.beta', '< 2.0'
-gem 'carrierwave-ftp', :require => 'carrierwave/storage/ftp/all'
+# gem 'carrierwave-ftp', :require => 'carrierwave/storage/ftp/all'
 gem "mini_magick"
+gem 'carrierwave-ftp', :require => 'carrierwave/storage/ftp'
 
 # gem 'bootstrap', '~> 4.1.1'
 # gem "milligram";

@@ -1,29 +1,15 @@
 class ImageUploader < CarrierWave::Uploader::Base
-  # アップロード先のストレージにSFTPを選択します。
-  storage :sftp
-
-  # SFTPの設定を記述
-  configure do |config|
-    # SFTPホスト名を指定します。
-    config.sftp_host = 'theno.sakura.ne.jp'
-
-    # SFTPアカウントユーザー名を指定します。
-    config.sftp_user = 'theno'
-
-    # SFTPアカウントパスワードとポート番号(22固定)を指定します。
-    config.sftp_options = {
-      password: 'b66wxz787z',
-      port: 22
-    }
-
-    # SFTPホストにおける画像格納先を指定します。
-    config.sftp_folder = '/www/sns/photo'
-
-    # 上記、画像格納先を示すURLを指定します。
-    config.sftp_url = 'https://theno.jp/sns/photo'
+  storage :ftp
+  CarrierWave.configure do |config|
+    config.ftp_host = 'theno.sakura.ne.jp'
+    config.ftp_port = 21
+    config.ftp_user = 'theno'
+    config.ftp_passwd = 'b66wxz787z'
+    config.ftp_folder = '/home/theno/www/sns/photo'
+    config.ftp_url = 'http://theno.jp/sns/photo'
+    config.ftp_passive = false # false by default
+    config.ftp_tls = false # false by default
   end
-
-  # 上記、画像格納先フォルダ内における格納の仕方を指定します。
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -39,7 +25,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   # Choose what kind of storage to use for this uploader:
-  storage :file
+  # storage :file
   # storage :fog
 
   # Override the directory where uploaded files will be stored.
